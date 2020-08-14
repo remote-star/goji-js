@@ -41,13 +41,11 @@
     "@types/node": "^14.0.1",
     "@types/replace-ext": "^0.0.27",
     "@types/resolve": "^1.17.1",
-    "@types/webpack": "^4.41.13",
     "@types/webpack-sources": "^0.1.7",
     "jest": "^26.0.1",
     "rimraf": "^3.0.0",
     "typescript": "^3.9.2",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^5.0.0-beta.25"
   },
   "dependencies": {
     "copy-webpack-plugin": "^6.0.2",
@@ -68,7 +66,7 @@
   },
   "peerDependencies": {
     "@goji/core": "*",
-    "webpack": ">=4"
+    "webpack": ">=5"
   },
   "repository": {
     "type": "git",

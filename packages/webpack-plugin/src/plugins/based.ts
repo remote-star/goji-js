@@ -3,8 +3,9 @@ import path from 'path';
 import replaceExt from 'replace-ext';
 import { GojiWebpackPluginOptions } from '../types';
 import { transformExtension } from '../utils/transformExtension';
+import { WebpackPlugin } from '../types/patch';
 
-export abstract class GojiBasedWebpackPlugin implements webpack.Plugin {
+export abstract class GojiBasedWebpackPlugin implements WebpackPlugin {
   public constructor(protected options: GojiWebpackPluginOptions) {}
 
   public abstract apply(compiler: webpack.Compiler): void;
