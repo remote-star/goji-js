@@ -1,6 +1,5 @@
 import webpack from 'webpack';
 import path from 'path';
-import { ConcatSource } from '../utils/serializableWebpackSources';
 import { GojiBasedWebpackPlugin } from './based';
 import { safeUrlToRequest } from '../utils/path';
 
@@ -114,8 +113,10 @@ export class GojiRuntimePlugin extends GojiBasedWebpackPlugin {
                 path.relative(path.dirname(entryChunk.name), chunkName),
               ),
             );
-            // @ts-ignore
-            compilation.assets[file] = new ConcatSource(prefix, compilation.assets[file] || '');
+            compilation.assets[file] = new webpack.sources.ConcatSource(
+              prefix,
+              compilation.assets[file] || '',
+            );
           }
         }
       });

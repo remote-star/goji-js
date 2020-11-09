@@ -1,12 +1,7 @@
 import webpack, { Template } from 'webpack';
-import {
-  ReplaceSource,
-  Source,
-  ConcatSource,
-  PrefixSource,
-  RawSource,
-} from '../utils/serializableWebpackSources';
 import { GojiBasedWebpackPlugin } from './based';
+
+const SOURCE_NAME = '';
 
 /**
  * this plugin is designed to support multi `runtime.js` in mini program.
@@ -31,7 +26,7 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
           }
           const { globalObject } = compilation.mainTemplate.outputOptions;
           const sourceString = source.source().toString();
-          const output = new ReplaceSource((source as any) as Source);
+          const output = new webpack.sources.ReplaceSource(source, SOURCE_NAME);
           const ORIGINAL_CODE = 'var __webpack_module_cache__ = {};';
           const findPosition = sourceString.indexOf(ORIGINAL_CODE);
           output.replace(
@@ -50,8 +45,9 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
               ]),
               '/*goji*/ ',
             ),
+            SOURCE_NAME,
           );
-          return new RawSource(output.source()) as any;
+          return new webpack.sources.RawSource(output.source(), false);
         },
       );
 
@@ -65,9 +61,9 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
 
           const { globalObject } = compilation.mainTemplate.outputOptions;
 
-          const output = new ConcatSource();
+          const output = new webpack.sources.ConcatSource();
           output.add(
-            new PrefixSource(
+            new webpack.sources.PrefixSource(
               '/*goji*/ ',
               Template.asString([
                 `var _chunkPath = ${JSON.stringify(context.chunk.name)};`,
@@ -83,9 +79,9 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
               ]),
             ),
           );
-          output.add((source as any) as Source);
+          output.add(source);
           output.add(
-            new PrefixSource(
+            new webpack.sources.PrefixSource(
               '/*goji*/ ',
               Template.asString([
                 '',
@@ -94,7 +90,7 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
               ]),
             ),
           );
-          return new RawSource(output.source()) as any;
+          return new webpack.sources.RawSource(output.source(), false);
         },
       );
     });

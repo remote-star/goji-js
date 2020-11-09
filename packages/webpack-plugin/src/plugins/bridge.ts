@@ -12,7 +12,6 @@ import { pathEntriesMap, appConfigMap, usedComponentsMap } from '../shared';
 import { GojiBasedWebpackPlugin } from './based';
 import { minimize } from '../utils/minimize';
 import { getSubpackagesInfo, findBelongingSubPackage } from '../utils/config';
-import { RawSource } from '../utils/serializableWebpackSources';
 
 /**
  * render bridge files and page/components entry files
@@ -62,7 +61,7 @@ export class GojiBridgeWebpackPlugin extends GojiBasedWebpackPlugin {
       content = minimize(content, path.extname(assetPath));
     }
     // @ts-ignore
-    compilation.assets[formattedAssetPath] = new RawSource(content);
+    compilation.assets[formattedAssetPath] = new webpack.sources.RawSource(content);
   }
 
   private shouldInlineChildrenRender() {
