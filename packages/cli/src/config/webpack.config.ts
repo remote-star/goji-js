@@ -87,7 +87,6 @@ export const getWebpackConfig = ({
       filename: '[name].js',
       publicPath: '/',
       globalObject: 'Object',
-      ecmaVersion: 5,
     },
     optimization: {
       minimize: nodeEnv === 'production',
