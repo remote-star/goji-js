@@ -24,7 +24,7 @@ export class GojiSingletonRuntimeWebpackPlugin extends GojiBasedWebpackPlugin {
           if (!context.chunk.name.endsWith('runtime')) {
             return source;
           }
-          const { globalObject } = compilation.mainTemplate.outputOptions;
+          const { globalObject } = compilation.outputOptions;
           const sourceString = source.source().toString();
           const output = new webpack.sources.ReplaceSource(source, SOURCE_NAME);
           const ORIGINAL_CODE = 'var __webpack_module_cache__ = {};';

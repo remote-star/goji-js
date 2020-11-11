@@ -15,9 +15,8 @@ import { getPoll } from './utils/polling';
 import { GojiProjectConfigPlugin } from './plugins/projectConfig';
 import { GojiCollectUsedComponentsWebpackPlugin } from './plugins/collectUsedComponents';
 import { getWrappedComponents } from './constants/components';
-import { WebpackPlugin } from './types/patch';
 
-export class GojiWebpackPlugin implements WebpackPlugin {
+export class GojiWebpackPlugin implements webpack.WebpackPluginInstance {
   private options: GojiWebpackPluginOptions;
 
   public constructor(options: Partial<GojiWebpackPluginOptions> = {}) {

@@ -6,10 +6,6 @@ import webpack from 'webpack';
 // FIXME:
 export type WebpackLoaderContext = any;
 
-export abstract class WebpackPlugin {
-  public abstract apply(compiler: webpack.Compiler): void;
-}
-
 export interface WebpackEntrypoint {
   name: string;
 }
