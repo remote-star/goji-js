@@ -50,7 +50,7 @@ export class GojiBridgeWebpackPlugin extends GojiBasedWebpackPlugin {
     merge?: (newSource: string, oldSource: string) => string,
   ) {
     const formattedAssetPath = this.transformExtForPath(assetPath);
-    let content = await this.renderTemplate(templatePath, data);
+    let content: string = await this.renderTemplate(templatePath, data);
     if (!merge && compilation.assets[formattedAssetPath] !== undefined) {
       console.warn('skip existing asset', formattedAssetPath);
     }
@@ -58,7 +58,7 @@ export class GojiBridgeWebpackPlugin extends GojiBasedWebpackPlugin {
       content = merge(content, compilation.assets[formattedAssetPath].source().toString());
     }
     if (this.options.minimize) {
-      content = minimize(content, path.extname(assetPath));
+      content = await minimize(content, path.extname(assetPath));
     }
     // @ts-ignore
     compilation.assets[formattedAssetPath] = new webpack.sources.RawSource(content);
