@@ -70,7 +70,6 @@ const main = async () => {
   }
 
   // create compiler
-  const compiler = webpack(webpackConfig);
   const compilerCallback = (err?: Error, stats?: webpack.Stats) => {
     if (err) {
       console.error(err.stack || err);
@@ -87,14 +86,12 @@ const main = async () => {
       process.stdout.write(`${statsString}\n`);
     }
   };
-
   if (watch) {
     console.log('Start GojiJS in development mode.');
-    compiler.watch(webpackConfig.watchOptions ?? {}, compilerCallback);
   } else {
     console.log('Start GojiJS in production mode.');
-    compiler.run(compilerCallback);
   }
+  webpack(webpackConfig, compilerCallback);
 };
 
 main().catch(e => console.error(e));
