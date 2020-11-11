@@ -52,7 +52,8 @@ export class GojiRuntimePlugin extends GojiBasedWebpackPlugin {
     compiler.hooks.thisCompilation.tap('GojiEntryWebpackPlugin', compilation => {
       compilation.hooks.processAssets.tap('GojiEntryWebpackPlugin', () => {
         for (const entryChunk of compilation.chunks) {
-          if (!entryChunk.hasEntryModule()) {
+          // filter out runtime chunk
+          if (compilation.chunkGraph.getNumberOfEntryModules(entryChunk) === 0) {
             continue;
           }
           const dependentChunkNames: Array<string> = [];
