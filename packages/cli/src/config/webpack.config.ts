@@ -112,6 +112,12 @@ export const getWebpackConfig = ({
     module: {
       rules: [
         {
+          test: /\.m?js$/,
+          resolve: {
+            fullySpecified: false, // disable the behaviour
+          },
+        },
+        {
           test: /\.(js|jsx|ts|tsx)$/,
           // compile node_modules in production mode
           // don't compile @babel/runtime otherwise the stack overflow error will be raised
